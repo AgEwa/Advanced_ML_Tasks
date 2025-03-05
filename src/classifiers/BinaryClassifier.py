@@ -34,7 +34,5 @@ class BinaryClassifier(ABC):
                 return recall_score(y_test, y_hat)
             case "precision":
                 return precision_score(y_test, y_hat)
-            case "all":
-                return accuracy_score(y_test, y_hat), recall_score(y_test, y_hat), precision_score(y_test, y_hat)
             case _:
                 raise NotImplementedError

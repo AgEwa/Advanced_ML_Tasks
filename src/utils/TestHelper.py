@@ -28,34 +28,34 @@ class TestHelper:
             raise NotImplementedError
         self.metric = metric
 
-    def __test(self, X, y, times, test_size):
+    def __test(self, X, y, times):
         results = [[None, None, None] for _ in range(times)]
         classifiers = [LDA(), QDA(), NaiveBayes()]
         for i in range(times):
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
             for j in range(len(classifiers)):
                 score = classifiers[j].fit_predict_evaluate(X_train, y_train, X_test, y_test, self.metric)
                 results[i][j] = score
         return np.array(results)
 
-    def test_scheme_1(self, a, times, test_size=0.2):
+    def test_scheme_1(self, a, times):
         X, y = self.generator.schema_1(a)
-        self.__make_boxplot(self.__test(X, y, times, test_size), test_size, a)
+        self.__make_boxplot(self.__test(X, y, times), a)
 
-    def test_scheme_2(self, a, rho, times, test_size=0.2):
+    def test_scheme_2(self, a, rho, times):
         X, y = self.generator.schema_2(a, rho)
-        self.__make_boxplot(self.__test(X, y, times, test_size), test_size, a, rho)
+        self.__make_boxplot(self.__test(X, y, times), a, rho)
 
-    def test_real_data(self, X, y, times, test_size=0.2):
-        self.__make_boxplot(self.__test(X, y, times, test_size), test_size)
+    def test_real_data(self, X, y, times):
+        self.__make_boxplot(self.__test(X, y, times))
 
-    def __make_boxplot(self, scores, test_size, a=None, rho=None):
+    def __make_boxplot(self, scores, a=None, rho=None):
         if rho:
-            title = f"Comparison for schema 2: a={a}, rho={rho}. Tested {scores.shape[0]} times with test size {test_size}"
+            title = f"Comparison for schema 2: a={a}, rho={rho}. Tested {scores.shape[0]} times"
         elif a:
-            title = f"Comparison for schema 1: a={a}. Tested {scores.shape[0]} times with test size {test_size}"
+            title = f"Comparison for schema 1: a={a}. Tested {scores.shape[0]} times"
         else:
-            title = f"Comparison for real data. Tested {scores.shape[0]} times with test size {test_size}"
+            title = f"Comparison for real data. Tested {scores.shape[0]} times"
 
         data = [scores[:, 0], scores[:, 1], scores[:, 2]]
         plt.figure(figsize=(9, 6))
@@ -67,7 +67,7 @@ class TestHelper:
         plt.xticks([0, 1, 2], ['LDA', 'QDA', 'NaiveBayes'])
         plt.show()
 
-    def plot_boundaries(self, a=None, rho=None, X=None, y=None, test_size=0.2):
+    def plot_boundaries(self, a=None, rho=None, X=None, y=None):
         if rho:
             X, y = self.generator.schema_2(a, rho)
         elif a:
