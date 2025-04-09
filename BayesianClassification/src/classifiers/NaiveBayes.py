@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.classifiers.BinaryClassifier import BinaryClassifier
+from BayesianClassification.src.classifiers.BinaryClassifier import BinaryClassifier
 
 
 def estimate_per_class(X: np.ndarray) -> tuple[np.ndarray, np.ndarray]:

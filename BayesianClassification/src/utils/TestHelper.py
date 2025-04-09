@@ -3,11 +3,11 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from src.classifiers.BinaryClassifier import BinaryClassifier
-from src.classifiers.LDA import LDA
-from src.classifiers.NaiveBayes import NaiveBayes
-from src.classifiers.QDA import QDA
-from src.utils.DatasetGenerator import DatasetGenerator
+from BayesianClassification.src.classifiers.BinaryClassifier import BinaryClassifier
+from BayesianClassification.src.classifiers.LDA import LDA
+from BayesianClassification.src.classifiers.NaiveBayes import NaiveBayes
+from BayesianClassification.src.classifiers.QDA import QDA
+from BayesianClassification.src.utils.DatasetGenerator import DatasetGenerator
 
 
 def fit_predict_plot(classifier: BinaryClassifier, X, y, color):
